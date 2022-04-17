@@ -74,3 +74,5 @@ def list_departments(request):
 
 def create_department(request):
     return HttpResponse('Created')
+
+

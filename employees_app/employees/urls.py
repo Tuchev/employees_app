@@ -1,10 +1,12 @@
-from django.urls import path
+from django.contrib import admin
+from django.urls import path, include
 
-from employees_app.employees.views import department_details, list_departments, not_found, create_department
+from employees_app.employees.views import home, go_to_home
 
-urlpatterns = (
-    path('create/', create_department),
-    path('<int:id>/', department_details, name='department details'),
-    path('', list_departments, name='list departments'),
-    path('not-found/', not_found),
-)
+# Mandatory, tuple or list
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', home, name='index'),  # localhost:8000 -> home
+    path('go-to-home/', go_to_home, name='go to home'),
+    path('departments/', include('employees_app.employees.urls')),
+]

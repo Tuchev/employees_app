@@ -5,13 +5,24 @@
     <title>Title</title>
 </head>
 <body>
+<ul>
+    <li>
+        <a href="{% url 'go to home' %}">Go to home</a>
+    </li>
+    <li>
+        <a href="{% url 'go to templates' %}">Go to templates</a>
+    </li>
+</ul>
 <h1>It works</h1>
 <h2>The number is {{ number }}</h2>
-<a href="{% url 'go to home' %}">Go to home</a>
 <ul>
-    <li>Fish</li>
-    <li>Beef</li>
-    <li>Pork</li>
+    {% for number in numbers %}
+        <li>Number {{ number }}</li>
+    {% endfor %}
 </ul>
+<script>
+    window.number = "{{ number }}";
+    {#{window.number = "123"}#}
+</script>
 </body>
 </html>
