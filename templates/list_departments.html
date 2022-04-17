@@ -7,22 +7,20 @@
 <body>
 <h1>List of departments</h1>
 <ul>
-    {% for department in departments%}
+    {% for department in departments %}
         <li>
             {{ department.name }}
             <ul>
-                {% for employee in department.employees_set.all %}
+                {% for employee in department.employee_set.all %}
                     <li>
-                    {{ employee.first_name }}
+                        {{ employee.first_name }}
                     </li>
-
-
                 {% endfor %}
             </ul>
         </li>
     {% endfor %}
     <hr>
-    {% for employee in employeesdepartments%}
+    {% for employee in employees %}
         <li>
             {{ employee.first_name }} ({{ employee.department.name }})
         </li>

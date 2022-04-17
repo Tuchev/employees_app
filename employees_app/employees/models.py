@@ -1,3 +1,4 @@
+from django.core import validators
 from django.db import models
 from django.urls import reverse
 
@@ -6,7 +7,7 @@ class AuditEntity(models.Model):
     created_on = models.DateTimeField(
         auto_now_add=True,
     )
-    updated_on = models.DateTimeField(
+    update_on = models.DateTimeField(
         auto_now=True,
     )
 
@@ -52,12 +53,16 @@ class Employee(models.Model):
         max_length=40,
         null=True,
         blank=True,
+        default='NO NAME',
     )
 
     egn = models.CharField(
         max_length=10,
         unique=True,
-        verbose_name='EGN',
+        verbose_name="EGN",
+        validators=(
+            validators.MinLengthValidator(10),  # At the end
+        )
     )
 
     job_title = models.IntegerField(
@@ -70,13 +75,19 @@ class Employee(models.Model):
 
     company = models.CharField(
         max_length=max(len(c) for c in COMPANIES),
-        choices=((c, c) for c in COMPANIES)
+        choices=((c, c) for c in COMPANIES),
     )
 
     # one to many
     department = models.ForeignKey(
         Department,
         on_delete=models.CASCADE,
+    )
+
+    image = models.ImageField(
+        null=True,
+        blank=True,
+        upload_to='profiles',
     )
 
     class Meta:
@@ -103,7 +114,7 @@ class Project(models.Model):
         blank=True,
     )
 
-    # many to many
+    # Many to many
     employees = models.ManyToManyField(
         to=Employee
     )
